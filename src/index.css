@@ -1,0 +1,15 @@
+body {
+  margin: 0;
+  font-family: Open Sans;
+  background-color: #f0f0f5;
+}
+
+@media only screen and (max-width: 600px) {
+  .MuiFormLabel-root {
+    font-size: 1rem !important;
+  }
+  .makeStyles-root-10 .MuiTextField-root {
+    margin: 0 !important;
+    margin-bottom: 10px !important;
+  }
+}
