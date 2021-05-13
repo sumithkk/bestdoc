@@ -68,6 +68,7 @@ const SignUp = () => {
             variant="contained"
             color="primary"
             className={classes.submit}
+            disabled={form.username === "" || form.password === ""}
           >
             Login
           </Button>
