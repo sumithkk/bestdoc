@@ -16,6 +16,25 @@ export function useDebounce(value, delay) {
   return debouncedValue;
 }
 
+//Password validation
+export function usePasswordValidation({ password = "", requiredLength = 8 }) {
+  const [validLength, setValidLength] = useState(null);
+  const [hasNumber, setHasNumber] = useState(null);
+  const [upperCase, setUpperCase] = useState(null);
+  const [lowerCase, setLowerCase] = useState(null);
+  const [specialChar, setSpecialChar] = useState(null);
+
+  useEffect(() => {
+    setValidLength(password.length >= requiredLength ? true : false);
+    setUpperCase(password.toUpperCase() !== password);
+    setLowerCase(password.toLowerCase() !== password);
+    setHasNumber(/\d/.test(password));
+    setSpecialChar(/[ `!@#$%^&*()_+\-=\]{};':"\\|,.<>?~]/.test(password));
+  }, [password, requiredLength]);
+
+  return [validLength, hasNumber, upperCase, lowerCase, specialChar];
+}
+
 //Form validation
 export function validate(values) {
   let errors = {};

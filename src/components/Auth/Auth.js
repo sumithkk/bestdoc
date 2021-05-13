@@ -6,11 +6,22 @@ import { signin } from "../../actions/auth";
 import useStyles from "./styles";
 import Input from "./Input";
 import { Loader } from "../Loader/loader";
+import { usePasswordValidation } from "../../helpers/customHooks";
 
 const initialState = { username: "", password: "" };
 
 const SignUp = () => {
   const [form, setForm] = useState(initialState);
+  const [
+    validLength,
+    hasNumber,
+    upperCase,
+    lowerCase,
+    specialChar,
+  ] = usePasswordValidation({
+    password: form.password,
+  });
+  const [error, setError] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
   const classes = useStyles();
@@ -21,12 +32,22 @@ const SignUp = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    if (
+      !validLength ||
+      !hasNumber ||
+      !upperCase ||
+      !lowerCase ||
+      !specialChar
+    ) {
+      setError(true);
+      return;
+    }
     dispatch(signin(form, history));
   };
 
-  const handleChange = (e) =>
+  const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+  };
 
   return (
     <Container
@@ -62,6 +83,35 @@ const SignUp = () => {
               handleShowPassword={handleShowPassword}
             />
           </Grid>
+          {error && (
+            <div>
+              {!validLength && (
+                <div className={classes.error}>
+                  password should have at-least 8 characters long.
+                </div>
+              )}
+              {!hasNumber && (
+                <div className={classes.error}>
+                  password should contain at least 1 number.
+                </div>
+              )}
+              {!upperCase && (
+                <div className={classes.error}>
+                  password should have at-least 1 lowercase letter.
+                </div>
+              )}
+              {!lowerCase && (
+                <div className={classes.error}>
+                  password should have at-least 1 uppercase letter.
+                </div>
+              )}
+              {!specialChar && (
+                <div className={classes.error}>
+                  password should have at-least 1 special character.
+                </div>
+              )}
+            </div>
+          )}
           <Button
             type="submit"
             fullWidth
