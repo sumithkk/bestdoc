@@ -14,6 +14,24 @@ API.interceptors.request.use((req) => {
     // req.headers["Access-Control-Allow-Origin"] = "http://localhost:8000";
   }
 
+  // // Add a response interceptor
+  // API.interceptors.response.use(
+  //   (response) => {
+  //     // Any status code that lie within the range of 2xx cause this function to trigger
+  //     // Do something with response data
+  //     console.log("response =============");
+  //     console.log(response);
+  //     return response;
+  //   },
+  //   function (error) {
+  //     // Any status codes that falls outside the range of 2xx cause this function to trigger
+  //     // Do something with response error
+  //     console.log("error =============");
+  //     console.log(error);
+  //     return Promise.reject(error);
+  //   }
+  // );
+
   return req;
 });
 

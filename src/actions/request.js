@@ -20,10 +20,10 @@ export const getRequest = () => async (dispatch) => {
     });
     dispatch({ type: END_LOADING });
   } catch (error) {
-    console.log(error);
-    dispatch({ type: ERROR, payload: error });
-    dispatch(showToast());
     dispatch({ type: END_LOADING });
+    let res = error.response;
+    dispatch({ type: ERROR, payload: res.data.message });
+    dispatch(showToast());
   }
 };
 
@@ -37,9 +37,9 @@ export const createRequest = (post, history) => async (dispatch) => {
     dispatch({ type: CREATE, payload: data });
     dispatch({ type: END_LOADING });
   } catch (error) {
-    console.log(error);
-    dispatch({ type: ERROR, payload: error });
-    dispatch(showToast());
     dispatch({ type: END_LOADING });
+    let res = error.response;
+    dispatch({ type: ERROR, payload: res.data.message });
+    dispatch(showToast());
   }
 };

@@ -20,9 +20,14 @@ export const signin = (formData, router) => async (dispatch) => {
     dispatch({ type: END_LOADING });
     router.push("/landing");
   } catch (error) {
-    console.log(error);
-    dispatch({ type: ERROR, payload: error });
-    dispatch(showToast());
     dispatch({ type: END_LOADING });
+    let msg = "";
+    if (error.response) {
+      msg = error.response.data.message;
+    } else {
+      msg = error.message;
+    }
+    dispatch({ type: ERROR, payload: msg });
+    dispatch(showToast());
   }
 };

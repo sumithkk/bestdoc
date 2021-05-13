@@ -18,13 +18,13 @@ const App = () => {
           <Route path="/auth" exact component={Auth} />
         </Switch>
       </div>
-      {showToast && error?.message && (
+      {showToast && error && (
         <Alert
           variant="filled"
           severity="error"
           style={{ position: "absolute", width: "100%", bottom: 0 }}
         >
-          {error.message}
+          {error}
         </Alert>
       )}
     </BrowserRouter>
